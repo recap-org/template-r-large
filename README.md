@@ -1,14 +1,12 @@
-# RECAP Demo template
+# RECAP Template : R - Large 
 
 ## Purpose
 
-[RECAP](https://recap-org.github.io) (Reproducible Environments for Collaborative Academic Projects) helps social scientists start projects with fully reproducible, ready-to-use research environments. This repository is a RECAP-generated starter template for academic data projects using the QuaLaR (Quarto + LaTeX + R) stack and is designed to run inside the provided devcontainer or in cloud IDEs (e.g., GitHub Codespaces) and local IDEs (VS Code, RStudio).
+This repository is a [RECAP](https://recap-org.github.io) template for academic data projects with R. It is designed to run in cloud IDEs (e.g., GitHub Codespaces) and local IDEs (VS Code, RStudio).Key features:
 
-Key features provided by this template and the RECAP environment:
-
-- A containerized, reproducible software environment with a preconfigured statistical language (R, Python, or Stata) and LaTeX for writing.
 - A clear workflow that converts raw data into processed data, analyses processed data into figures and tables, and uses those assets in LaTeX documents (article, appendix, presentation).
-- Built-in practices for reproducible research: version control ([git](https://git-scm.com/)), dependency management ([renv](https://rstudio.github.io/renv/)), automated build pipelines ([Make](https://www.gnu.org/software/make/make.html)), and testing ([testthat](https://testthat.r-lib.org/)).
+- Built-in practices for reproducible research: dependency management ([renv](https://rstudio.github.io/renv/)), automated build pipelines ([Make](https://www.gnu.org/software/make/make.html)), and testing ([testthat](https://testthat.r-lib.org/)).
+- A containerized, reproducible software environment that allows running this template on the browser.
 - Documentation and tutorials (see the [RECAP](https://recap-org.github.io) site) to help you get started and teach collaborators.
 
 The building blocks of this template are:
@@ -38,17 +36,23 @@ You have two options:
 1. Select **Create a new repository**.
 2. Once it is ready, you can: 
     - Open it in GitHub Codespaces by clicking the green **Code** button and selecting **Open with Codespaces > New codespace**.
-    - Clone it to your local machine use it locally. Make sure you have [Docker](https://www.docker.com/get-started/) and [Devpod](https://devpod.sh/) installed and running. Then, open the project with Devpod to get the same containerized environment as in Codespaces, but in the IDE of your choice: VS Code, Positron, RStudio (Windows only). On VS Code, you can also use the [VS Code Remote - Containers](https://code.visualstudio.com/docs/remote/containers) extension if you prefer not to use Devpod.
+    - Clone it to your local machine use it locally. You can use the provided containerized environment for a one-click install of all the dependencies (documentation for [VS Code](https://code.visualstudio.com/docs/remote/containers) and for Positron)
 
-## Basic demo
+## Demo
 
-On VS Code or Github Codespaces, click Menu > View > Open the Command Palette (or press Ctrl + Shift + P) to open the Command Palette, then type "Makefile: Build the current target" and press Enter. Otherwise, you can open a terminal in your IDE and type:
+First, install the R packages used in this template. Open an R console and type:
+
+```r
+install.packages(c("tidyverse", "modelsummary", "testthat"))
+```
+
+Open a terminal in your IDE and type:
 
 ```bash
 make
 ```
 
- This will run the data cleaning script, then do the analysis, and finally compile all the LaTeX documents. You will find the final documents in the `./bin/tex` directory and intermediary reports of the data cleaning and analysis steps in the `./bin/src` directory.
+This will run the data cleaning script, then do the analysis, and finally compile all the LaTeX documents. You will find the final documents in the `./bin/tex` directory and intermediary reports of the data cleaning and analysis steps in the `./bin/src` directory.
 
 Run the tests by opening a terminal and typing: 
 
@@ -97,7 +101,7 @@ When running the command `make all` in the terminal, this template uses GNU make
 2. **Do the analysis.** Run all the scripts in the `./src/analysis` directory
 3. **Compile the LaTeX documents.** Build all the documents in the `./tex` directory
 
-Try and customize `./Makefile` to change how the build steps are executed. 
+You can customize `./Makefile` to change how the build steps are executed. 
 
 #### Step 1: cleaning raw data
 
