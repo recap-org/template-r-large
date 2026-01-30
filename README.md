@@ -58,10 +58,6 @@ This will run the data cleaning script, then do the analysis, and finally compil
 
 This template is organized as follows
 
-## Using this template
-
-This template is organized as follows
-
 ```bash
 ├── LICENSE
 ├── README.md
