@@ -7,21 +7,20 @@
 \usepackage[a4paper, margin=1in]{geometry}
 \usepackage[normalem]{ulem}
 \usepackage{
-    amsmath,amsthm,amscd,amsfonts,amssymb, 
-    threeparttable,booktabs,pdflscape,tabularray,
-    graphicx,float,hyperref,
-    lineno,fancyhdr,
-    natbib,
-    setspace,siunitx,
-    xr,appendix,
-    codehigh
+  amsmath,amsthm,amscd,amsfonts,amssymb,
+  threeparttable,booktabs,pdflscape,tabularray,
+  graphicx,float,hyperref,
+  lineno,fancyhdr,
+  natbib,
+  setspace,siunitx,
+  xr,appendix,
+  codehigh
 }
 \UseTblrLibrary{booktabs}
 \UseTblrLibrary{siunitx}
 \newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
 \newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
 \NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
-
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
@@ -39,14 +38,14 @@
 % \externaldocument{../appendix/main} % uncomment to tie to an external appendix (see appendix template; use relative paths)
 
 \title{
-    The Theory of Everything: a Short Primer
-    % \thanks{Acknowledgements}
+  The Theory of Everything: a Short Primer
+  % \thanks{Acknowledgements}
 }
 \author{
-    Morgan Doe
-    \thanks{
-        Aix Marseille School of Economics, {\tt \href{mailto:morgan.doe@univ-amu.fr}{morgan.doe@univ-amu.fr}.}
-    }
+  Morgan Doe
+  \thanks{
+    Aix Marseille School of Economics, {\tt \href{mailto:morgan.doe@univ-amu.fr}{morgan.doe@univ-amu.fr}.}
+  }
 }
 \date{\today}
 
@@ -56,13 +55,13 @@
 \fancyhf{}
 \lhead{Theory of Everything}
 \rhead{
-    Doe
+  Doe
 }
 \cfoot{\thepage}
 \setlength{\headheight}{14pt}
 \fi
 
-% ---- Anonymized manuscript specific layout --- 
+% ---- Anonymized manuscript specific layout ---
 \if \anonymized1
 \onehalfspacing % wider line spacing
 \linenumbers % add line numbers
@@ -72,14 +71,15 @@
 \sloppy % avoid overfull hboxes
 
 \if\anonymized0
-    \maketitle
-    %TC:ignore
-    % \begin{abstract}
-        
-    % \end{abstract}
-    %TC:endignore
+\maketitle
+%TC:ignore
+% \begin{abstract}
+
+% \end{abstract}
+%TC:endignore
 \fi
 
+A nice paper that follows up on the work of \citet{Doe}.
 
 \begin{table}[H]
   \centering
@@ -103,12 +103,11 @@
   \label{fig:nice_figure}
 \end{figure}
 
-
 % ---- Bibliography ----
 \newpage
 %TC:ignore
-% \bibliographystyle{aer} 
-% \bibliography{library}
+\bibliographystyle{aer}
+\bibliography{./assets/references}
 %TC:endignore
 
 \newpage
