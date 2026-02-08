@@ -35,16 +35,16 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-% \externaldocument{../appendix/main} % uncomment to tie to an external appendix (see appendix template; use relative paths)
+% \externaldocument{../appendix/main} % uncomment to tie to the external appendix
 
 \title{
-  The Theory of Everything: a Short Primer
+  On the Reproducibility of Plausible Results
   % \thanks{Acknowledgements}
 }
 \author{
-  Morgan Doe
+  Alex Lambda
   \thanks{
-    Aix Marseille School of Economics, {\tt \href{mailto:morgan.doe@univ-amu.fr}{morgan.doe@univ-amu.fr}.}
+    Institute for Advanced Templates, {\tt \href{mailto:alex.lambda@example.com}{alex.lambda@example.com}.}
   }
 }
 \date{\today}
@@ -53,9 +53,9 @@
 \if\anonymized0
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Theory of Everything}
+\lhead{On the Reproducibility of Plausible Results}
 \rhead{
-  Doe
+  Lambda
 }
 \cfoot{\thepage}
 \setlength{\headheight}{14pt}
@@ -73,35 +73,66 @@
 \if\anonymized0
 \maketitle
 %TC:ignore
-% \begin{abstract}
+\begin{abstract}
+This paper examines the reproducibility of plausible empirical results using a stylized dataset on student performance. We estimate a linear model relating exam outcomes to study behavior, attendance, sleep, and prior achievement, and use the exercise to demonstrate a fully reproducible research workflow. While the data and findings are intentionally simplified, the analysis illustrates how standard empirical results can be documented, replicated, and extended with minimal friction. The paper serves as a minimal working example rather than a substantive contribution.
 
-% \end{abstract}
+\end{abstract}
 %TC:endignore
 \fi
 
-A nice paper that follows up on the work of \citet{Doe}.
+\section{Introduction}
+\label{sec:introduction}
 
-\begin{table}[H]
-  \centering
-  \input{./assets/tables/table.tex}
-  \caption{A table generated with R}
-  \label{tab:r_table}
+Reproducibility is now widely recognized as a central concern in empirical research. Recent work by \citet{lambda2024defaults} emphasizes that many irreproducible results stem not from flawed methods, but from undocumented defaults, missing metadata, and fragile workflows. Here, we argue that even \emph{entirely plausible} results may \emph{fail to reproduce} when computational environments are not explicitly specified.
+
+This paper follows that perspective. Using a simple dataset on student outcomes \citep{student_exam_scores_kaggle}, we estimate a conventional regression model and present the results in tabular and graphical form (Section \ref{sec:results}). The goal is not to uncover new empirical insights, but to provide a compact, transparent example that can be reproduced end-to-end with minimal effort.
+
+\section{Results}
+\label{sec:results}
+
+We estimate the following linear model:
+\begin{equation}
+\text{score}_i = \beta_0 + \beta_1 \text{hours\_studied}_i + \beta_2 \text{sleep\_hours}_i
++ \beta_3 \text{attendance}_i + \beta_4 \text{previous\_scores}_i + \varepsilon_i,
+\end{equation}
+where $\varepsilon_i$ denotes an idiosyncratic error term. Table~\ref{tab:regression} reports the estimated coefficients, and Figure~\ref{fig:coefplot} visualizes them with 95\% confidence intervals.
+
+\begin{table}[ht]
+\centering
+\label{tab:regression}
+\caption{Regression of Exam Scores on Study Inputs}
+\input{./assets/tables/table.tex}
 \end{table}
 
-\begin{figure}
-  \centering
-  \includegraphics{./assets/figures/figure.pdf}
-  \caption{A figure generated with R}
-  \label{fig:r_figure}
+\begin{figure}[ht]
+\centering
+\includegraphics{./assets/figures/figure.pdf}
+\caption{Coefficient Estimates with Confidence Intervals}
+\label{fig:coefplot}
 \end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\textwidth]{./assets/static/dk.jpg}
-  \caption{A static figure. Photo by \href{https://unsplash.com/@ninjason?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash}{Jason Leung} on \href{https://unsplash.com/photos/donkey-kong-arcade-game-screen-with-1981-date-c5tiCWrZADc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash}{Unsplash}
-  }
-  \label{fig:nice_figure}
+The results are broadly consistent with intuition. In particular:
+\begin{enumerate}
+  \item prior performance is strongly predictive of current exam outcomes,
+  \item attendance is positively associated with scores, and
+  \item study time has a modest but precisely estimated effect.
+\end{enumerate}
+
+For completeness, we note three features of the empirical setup:
+\begin{itemize}
+  \item {\bf Measurement.} All variables are measured at the individual level.
+  \item {\bf Illustration.} The sample is purely illustrative.
+  \item {\bf Linearity.} The specification is intentionally linear.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{./assets/static/dk.jpg}
+\caption{An External Image Included for Demonstration Purposes}
+\label{fig:donkeykong}
 \end{figure}
+
+Figure~\ref{fig:donkeykong} provides an external visual reference included solely to demonstrate the handling of figures.
 
 % ---- Bibliography ----
 \newpage

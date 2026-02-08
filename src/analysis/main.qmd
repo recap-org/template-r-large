@@ -1,6 +1,10 @@
 ---
 title: "Analysis"
+# date automatically set to today
 date: "`r Sys.Date()`"
+# see ./_quarto.yml to change other options
+# (e.g., author, rendering format (pdf by default), ...)
+# these options apply to all .qmd files in the project 
 ---
 
 ```{r}
@@ -19,7 +23,6 @@ df <- read_csv("./data/processed/data.csv", show_col_types = FALSE)
 
 ```{r}
 #| label: analysis
-#| tbl-cap: Regression table
 
 models <- list(
   lm(exam_score ~ previous_scores, data = df),
@@ -28,8 +31,8 @@ models <- list(
 ```
 
 ```{r}
-#| label: table
-#| tbl-cap: Regression table
+#| label: tbl-table
+#| tbl-cap: Regression of Exam Scores on Study Inputs
 
 m <- modelsummary(models, output = "tinytable")
 m # show the table in the quarto report
@@ -39,8 +42,8 @@ save_table(m, "table")
 ```
 
 ```{r}
-#| label: plot
-#| fig-cap: Coefficient plot
+#| label: fig-figure
+#| fig-cap: Coefficient Estimates with Confidence Intervals
 
 modelplot(models)
 # save the figure to ./assets/figures/figure.pdf for use in .tex files

@@ -1,37 +1,37 @@
 export
 
-# --- I/O colors ---
-GREEN_START = \033[1;32m
-GREEN_END = \033[0m
-
-# ---- Define target paths ----
+# ---- Define important paths ----
 # R targets
-R_LIBS = $(wildcard ./src/lib/*.R)
-R_DATA = $(patsubst ./src/data/%.qmd, ./bin/src/data/%.pdf, $(wildcard ./src/data/*.qmd))
-R_ANALYSIS = $(patsubst ./src/analysis/%.qmd, ./bin/src/analysis/%.pdf, $(wildcard ./src/analysis/*.qmd))
+LIBS = $(wildcard ./src/lib/*.R)
+DATA = $(patsubst ./src/data/%.qmd, ./out/src/data/%.pdf, $(wildcard ./src/data/*.qmd))
+ANALYSIS = $(patsubst ./src/analysis/%.qmd, ./out/src/analysis/%.pdf, $(wildcard ./src/analysis/*.qmd))
 
 # LaTex targets
-PDF_FILES = $(patsubst ./tex/%,./bin/tex/%.pdf,$(wildcard ./tex/*)) 
+PDF_FILES = $(patsubst ./tex/%,./out/tex/%.pdf,$(wildcard ./tex/*)) 
 
-
-# ---- Main targets ----
+# Main targets
 all: $(PDF_FILES)
-.SECONDARY: $(R_ANALYSIS) $(R_DATA) $(STATA_ANALYSIS) $(STATA_DATA)
-.PHONY: all clean fresh clear-cache tests initialize
+.SECONDARY: $(ANALYSIS) $(DATA)
+.PHONY: all fresh clear-cache tests symlinks 
 
-# ---- Step 1: Data ----
-./bin/src/data/%.pdf: ./src/data/%.qmd $(R_LIBS)
+
+# ---- Build rules ----
+
+# Step 1: Data
+./out/src/data/%.pdf: ./src/data/%.qmd $(LIBS)
 	@echo "🗄️ $(GREEN_START)Data processing$(GREEN_END)"
 	@$(call build_qmd,$<)
 
-# ---- Step 2: Analysis ----
-./bin/src/analysis/%.pdf: ./src/analysis/%.qmd $(R_DATA) $(R_LIBS)
+# Step 2: Analysis
+./out/src/analysis/%.pdf: ./src/analysis/%.qmd $(DATA) $(LIBS)
 	@echo "📊 $(GREEN_START)Running analysis$(GREEN_END)"
 	@$(call build_qmd,$<)
 
-# ---- Step 3: Paper ----
-./bin/tex/%.pdf: ./tex/%/main.tex $(R_ANALYSIS)
+# Step 3: Paper
+./out/tex/%.pdf: ./tex/%/main.tex $(ANALYSIS)
 	@$(call build_tex,$<)
+
+# ---- Utility targets ----
 
 clean: ## Clean up intermediate latex files
 	@echo "🧹 $(GREEN_START)Cleaning up...$(GREEN_END)"
@@ -40,9 +40,7 @@ clean: ## Clean up intermediate latex files
 
 fresh: ## Delete all targets
 	@echo "😵 $(GREEN_START)Deleting all targets and intermediary files...$(GREEN_END)"
-	@find ./bin -type f -name "*.pdf" -delete
-	@find ./bin -type f -name "*.log" -delete
-	@find ./bin -type f -name "*.log" -delete
+	@find ./out -type f -name "*.pdf" -delete
 	@find ./assets/tables -type f ! -name ".gitignore" -delete
 	@find ./assets/figures -type f ! -name ".gitignore" -delete
 	@find ./data/processed -type f ! -name ".gitignore" -delete
@@ -72,31 +70,14 @@ help: ## Display this help message
 
 # ---- functions ----
 
-# build_tex
-# -----------
-# Compiles a LaTeX file in ./tex/DIR/main.tex and copies the resulting PDF to ./bin/tex/DIR.pdf
-# Arguments:
-#   $1 - Path to the LaTeX main.tex file (e.g., tex/article/main.tex)
-define build_tex
-	$(eval TARGET := $(patsubst tex/%/main.tex,bin/tex/%.pdf,$(1)))
-	@echo "📝 $(GREEN_START)Compiling $(1) -> $(TARGET)...$(GREEN_END)"
-	@mkdir -p ./bin/tex/
-	@cd $(dir $(1)) &&\
-		latexmk -pdf -quiet\
-		-interaction=nonstopmode $(notdir $(1))
-	@cp $(basename $(1)).pdf $(TARGET)
-	@echo "✅ $(GREEN_START)Done!$(GREEN_END)"
-endef
-
-# ---- functions ----
-
 # build_qmd
 # -----------
-# Renders a Quarto document (.qmd) and generates a PDF output in the bin directory
+# Renders a Quarto document (.qmd) and generates a PDF output in the ./out directory
+# (e.g., ./src/analysis/main.qmd -> ./bin/src/analysis/main.pdf)
 # Arguments:
-#   $1 - Path to the .qmd file (e.g., src/analysis/main.qmd -> bin/src/analysis/main.pdf)
+#   $1 - Path to the .qmd file (e.g., ./src/analysis/main.qmd)
 define build_qmd
-	$(eval TARGET := $(patsubst %.qmd,bin/%.pdf,$(1)))
+	$(eval TARGET := $(patsubst %.qmd,out/%.pdf,$(1)))
 	@echo "📄 $(GREEN_START)Rendering $(1) -> $(TARGET)...$(GREEN_END)"
 	@quarto render $(1)
 	@echo "✅ $(GREEN_START)Done!$(GREEN_END)"
@@ -106,9 +87,29 @@ endef
 # -----------
 # Run an R script
 # Arguments:
-#   $1 - Path to the .R file (e.g., src/lib/io.R)
+#   $1 - Path to the .R file (e.g., ./src/lib/io.R)
 define build_R
 	@echo "📄 $(GREEN_START)Running $(1)...$(GREEN_END)"
 	@Rscript $(1)
 	@echo "✅ $(GREEN_START)Done!$(GREEN_END)"
 endef
+
+# build_tex
+# -----------
+# Compiles a LaTeX file in ./tex/DIR/main.tex and copies the resulting PDF to ./out/tex/DIR.pdf
+# Arguments:
+#   $1 - Path to the LaTeX main.tex file (e.g., ./tex/article/main.tex)
+define build_tex
+	$(eval TARGET := $(patsubst tex/%/main.tex,out/tex/%.pdf,$(1)))
+	@echo "📝 $(GREEN_START)Compiling $(1) -> $(TARGET)...$(GREEN_END)"
+	@mkdir -p ./out/tex/
+	@cd $(dir $(1)) &&\
+		latexmk -pdf -quiet\
+		-interaction=nonstopmode $(notdir $(1))
+	@cp $(basename $(1)).pdf $(TARGET)
+	@echo "✅ $(GREEN_START)Done!$(GREEN_END)"
+endef
+
+# --- I/O colors ---
+GREEN_START = \033[1;32m
+GREEN_END = \033[0m

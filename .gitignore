@@ -1,8 +1,6 @@
-#### Environment ####
+#### Project ####
 
-.env
-stata.lic
-/bin
+/out
 /tex/*/*.pdf
 
 #### macOS ####
@@ -13,7 +11,6 @@ stata.lic
 
 Thumbs.db
 ehthumbs.db
-
 
 #### R ####
 
@@ -70,7 +67,6 @@ rsconnect/
 # quarto files and folders
 /.quarto/
 *_files
-
 
 #### LaTeX ####
 
