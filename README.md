@@ -79,38 +79,61 @@ This template is organized as follows
 └── .devcontainer # configuration for the containerized environment
 ```
 
-### Producing the report
+### Producing the paper, appendix and presentation
+
+This template uses `make` to orchestrate a multi-stage analysis pipeline.  
+Before modifying the build system, we strongly recommend reading: [Building your project with make](https://recap-org.github.io/docs/building-with-make)
+
+This section explains how the large template is organized and how your code should fit into that structure.
 
 #### Step 1: cleaning raw data
 
-The raw data should be placed in the `./data/raw` directory, and committed to git (unless it is very large, in which case you should consider alternative storage solutions). 
+Raw data should be placed in the `./data/raw` directory and committed to git (unless it is very large, in which case you should consider alternative storage solutions).
 
-The code that processes the raw data into clean data should be a series of Quarto `.qmd` scripts placed in the `./src/data` directory. These scripts should produce a series of clean datasets, to be placed in the `./data/processed` directory. To leverage our automated build pipeline, each script should be able to run in parallel (i.e., they should not depend on previous scripts). 
+Data-cleaning code should consist of a series of Quarto `.qmd` scripts placed in the `./src/data` directory.  
+These scripts produce clean, analysis-ready datasets, stored in `./data/processed`.
 
-Using Quarto has a series of advantages. First, it always produces a single, traceable `.pdf` output that can be used for build pipelines. Second, Quarto provides easy to read command line output. Third, Quarto has a cache feature that can dramatically speed up code re-execution. 
+To leverage the automated build pipeline, each script should be able to run independently (that is, scripts should not depend on one another).
+
+Using Quarto at this stage ensures that each step produces a single, traceable output that integrates cleanly with the build system.
 
 #### Step 2: doing the analysis
 
-The code that does the analysis uses the processed data to procude tables and figures used in the LaTeX documents. This code should be a series of Quarto `.qmd` scripts placed in the `./src/analysis` directory. These scripts take the processed data in `./data/processed` as inputs, and stores its outputs in `./assets/tables` and `./assets/figures`. This template provides the helper functions `save_figure` and `save_table` that do this for you. These functions are in `./src/lib/io.R`. To leverage our automated build pipeline, each script should be able to run in parallel (i.e., they should not depend on previous scripts). 
+Analysis code should be placed in the `./src/analysis` directory as a series of Quarto `.qmd` scripts.
+
+These scripts:
+- take processed data from `./data/processed` as input,
+- produce tables and figures stored in `./assets/tables` and `./assets/figures`.
+
+The template provides helper functions for this purpose (for example, to save figures and tables in a consistent way). These functions live in `./src/lib/io.R`.
+
+As in the data step, analysis scripts should be written so they can run in parallel.
 
 #### Step 3: compiling the LaTeX documents
 
-Each LaTeX document is a sub-directory of `./tex`. The main `.tex` file of each document must be called `main.tex`. Each LaTeX document has symlinks to the `./assets` directory for shared use of the project's assets and bibliography. 
+Each LaTeX document lives in its own subdirectory of `./tex`.  
+The main file of each document must be called `main.tex`.
 
-### Doing the whole analysis from scratch
+LaTeX documents use symlinks to the shared `./assets` directory so that tables, figures, and bibliographic resources can be reused across documents.
 
-In the terminal, you can run 
+### Running the full analysis
+
+To run the entire pipeline from scratch, use:
+
 ```bash
 make
 ```
-to run the analysis all at once. This will execute our three steps: process the data (scripts in `./src/data`) -> run the analysis (scripts in `./src/analysis`) -> compile the tex files (directories in `./tex`).
 
-Run to get more details on the available commands:
-```bash
-make help 
-```
+This command executes the full sequence:
+1. process the data (`./src/data`),
+2. run the analysis (`./src/analysis`),
+3. compile the LaTeX documents (`./tex`).
 
-You can customize `./Makefile` to change how the build steps are executed.
+Every RECAP large template also provides a `make help` command that lists the supported build targets and utility commands.  
+If you are unsure how the project is meant to be used, this is always the right starting point.
+
+You can customize the `./Makefile` to adapt the pipeline to your needs.  
+For a conceptual overview of how RECAP uses `make` at this scale, refer back to the documentation page linked above.
 
 ### External assets
 
