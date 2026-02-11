@@ -24,7 +24,8 @@
     // 👇 restore renv packages upon container creation
     "postCreateCommand": "Rscript -e 'renv::restore()'",
     "containerEnv": {
-        // 👇 use pak for automatic installation of system dependencies
+        // 👇 use pak for automatic installation of system dependencies when 
+        // restoring R packages with renv
         "RENV_CONFIG_PAK_ENABLED": "TRUE", 
         // 👇 store renv package cache in /renv/cache 
         // (avoids cluttering the container user's home folder)
@@ -32,11 +33,15 @@
     },
     // 👇 Bind local folders into the container
     "mounts": [
-        // Mount a folder containing external raw data into the project's data/raw folder.
+        // 👇 Mount a folder containing external raw data into the project's data/raw folder.
         // "source=${localEnv:HOME}${localEnv:USERPROFILE}/data,target=${containerWorkspaceFolder}/data/raw,type=bind,consistency=cached",
-        // Mount a volume containing external raw data into the project's data/raw folder.
+
+        // 👇 Mount a volume containing external raw data into the project's data/raw folder.
         // "source=volume-name,target=${containerWorkspaceFolder}/data/raw,type=volume",
-        // Shared cache of renv packages
-        "source=devcontainer-renv-cache,target=/renv/cache,type=volume"
+        
+        // 👇 Optional: mount shared renv cache volume to avoid reinstalling
+        // packages across dev containers. This improves performance but
+        // does not affect reproducibility (renv.lock governs versions).
+        // "source=devcontainer-renv-cache,target=/renv/cache,type=volume"
     ]
 }

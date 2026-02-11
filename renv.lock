@@ -1507,7 +1507,7 @@
     },
     "dtplyr": {
       "Package": "dtplyr",
-      "Version": "1.3.2",
+      "Version": "1.3.3",
       "Source": "Repository",
       "Title": "Data Table Back-End for 'dplyr'",
       "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"cre\", \"aut\")), person(\"Maximilian\", \"Girlich\", role = \"aut\"), person(\"Mark\", \"Fairbanks\", role = \"aut\"), person(\"Ryan\", \"Dickerson\", role = \"aut\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
@@ -1542,11 +1542,11 @@
       "Config/Needs/website": "tidyverse/tidytemplate",
       "Config/testthat/edition": "3",
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.2.9000",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [cre, aut], Maximilian Girlich [aut], Mark Fairbanks [aut], Ryan Dickerson [aut], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "RSPM"
+      "Repository": "CRAN"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -5169,7 +5169,7 @@
     },
     "tinytable": {
       "Package": "tinytable",
-      "Version": "0.15.2",
+      "Version": "0.16.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Simple and Configurable Tables in 'HTML', 'LaTeX', 'Markdown', 'Word', 'PNG', 'PDF', and 'Typst' Formats",
@@ -5197,6 +5197,7 @@
         "marginaleffects",
         "modelsummary",
         "pandoc",
+        "pkgdown",
         "quarto",
         "Rdatasets",
         "rmarkdown",
@@ -5219,7 +5220,7 @@
       "NeedsCompilation": "no",
       "Author": "Vincent Arel-Bundock [aut, cre] (ORCID: <https://orcid.org/0000-0003-2042-7063>)",
       "Maintainer": "Vincent Arel-Bundock <vincent.arel-bundock@umontreal.ca>",
-      "Repository": "RSPM"
+      "Repository": "CRAN"
     },
     "tinytex": {
       "Package": "tinytex",
