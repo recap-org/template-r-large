@@ -70,6 +70,7 @@ This template is organized as follows
 │   ├── data # scripts that process raw data into clean data
 │   ├── main # scripts that generate do the analysis
 │   └── lib # helper functions
+├── out # where generated outputs are stored (not committed to git)
 ├── _quarto.yaml # configuration for Quarto
 ├── .lintr # configuration for R linting
 ├── renv.lock # renv lockfile; records packages used in the project
@@ -130,24 +131,7 @@ As in the data step, analysis scripts should be written so they can run in paral
 
 #### Step 3: compiling the LaTeX documents
 
-Each LaTeX document lives in its own subdirectory of `./tex`.  
-The main file of each document must be called `main.tex`.
-
-LaTeX documents use symlinks to the shared `./assets` directory so that tables, figures, and bibliographic resources can be reused across documents. 
-
-A symlink is simply a reference to another folder. It does not duplicate files — it just points to them. This allows every LaTeX project to access the same assets without copying them.
-
-You normally do not need to manage these links manually.
-
-If you add a new LaTeX project (a new subdirectory under `./tex`), run:
-
-```bash
-make symlinks
-```
-
-This will automatically create the required symlinks.
-
-If symlink creation fails, make sure you are working inside the development container, where symlinks are fully supported.
+Each LaTeX document lives in its own subdirectory of `./tex`.  The main file of each document must be called `main.tex`.
 
 ### External assets
 

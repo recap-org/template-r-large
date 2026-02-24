@@ -1,6 +1,6 @@
 export
 
-# ---- Define important paths ----
+# ---- Define targets ----
 # R targets
 LIBS = $(wildcard ./src/lib/*.R)
 DATA = $(patsubst ./src/data/%.qmd, ./out/src/data/%.pdf, $(wildcard ./src/data/*.qmd))
@@ -41,6 +41,7 @@ clean: ## Clean up intermediate latex files
 fresh: ## Delete all targets
 	@echo "😵 $(GREEN_START)Deleting all targets and intermediary files...$(GREEN_END)"
 	@find ./out -type f -name "*.pdf" -delete
+	@find ./out -type f -name "*.log" -delete
 	@find ./assets/tables -type f ! -name ".gitignore" -delete
 	@find ./assets/figures -type f ! -name ".gitignore" -delete
 	@find ./data/processed -type f ! -name ".gitignore" -delete
@@ -54,16 +55,6 @@ clear-cache: ## Clear cache of .qmd files
 tests: ## Run tests
 	@echo "🧪 $(GREEN_START)Running tests...$(GREEN_END)"
 	@Rscript -e "testthat::test_dir('tests')"
-
-symlinks: ## Create symlinks to assets in each LaTeX subdirectory
-	@echo "🛠️ $(GREEN_START)Creating symlinks to assets folder...$(GREEN_END)"
-	@for dir in ./tex/*/; do \
-		if [ -d "$$dir" ]; then \
-			echo "Creating symlinks in $$dir..."; \
-			ln -sf "../../assets" "$$dir/assets"; \
-		fi; \
-	done
-	@echo "✅ $(GREEN_START)Done!$(GREEN_END)"
 
 help: ## Display this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) }' $(MAKEFILE_LIST)
@@ -112,4 +103,6 @@ endef
 
 # --- I/O colors ---
 GREEN_START = \033[1;32m
-GREEN_END = \033[0m
+GREEN_END = \033[
+RED_START = \033[1;31m
+RED_END = \033[0m

@@ -1,3 +1,9 @@
+% define path information
+\newcommand{\assets}{../../assets/}
+\newcommand{\tables}{\assets tables/}
+\newcommand{\figures}{\assets figures/}
+\newcommand{\static}{\assets static/}
+
 \def\anonymized{0} % uncomment to compile the non-anonymized version of the document
 % \def\anonymized{1} % uncomment to compile the anonymized version of the document
 
@@ -13,7 +19,7 @@
   lineno,fancyhdr,
   natbib,
   setspace,siunitx,
-  xr,appendix,
+  appendix,xr, 
   codehigh
 }
 \UseTblrLibrary{booktabs}
@@ -36,7 +42,6 @@
 \newtheorem{remark}{Remark}
 
 % \externaldocument{../appendix/main} % uncomment to tie to the external appendix
-
 \title{
   On the Reproducibility of Plausible Results
   % \thanks{Acknowledgements}
@@ -101,12 +106,12 @@ where $\varepsilon_i$ denotes an idiosyncratic error term. Table~\ref{tab:regres
   \centering
   \label{tab:regression}
   \caption{Regression of Exam Scores on Study Inputs}
-  \input{./assets/tables/table.tex}
+  \input{\tables table.tex}
 \end{table}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics{./assets/figures/figure.pdf}
+  \includegraphics{\figures figure.pdf}
   \caption{Coefficient Estimates with Confidence Intervals}
   \label{fig:coefplot}
 \end{figure}
@@ -127,7 +132,7 @@ For completeness, we note three features of the empirical setup:
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.4\textwidth]{./assets/static/dk.jpg}
+  \includegraphics[width=0.4\textwidth]{\static dk.jpg}
   \caption{An External Image Included for Demonstration Purposes}
   \label{fig:donkeykong}
 \end{figure}
@@ -138,12 +143,12 @@ Figure~\ref{fig:donkeykong} provides an external visual reference included solel
 \newpage
 %TC:ignore
 \bibliographystyle{aer}
-\bibliography{./assets/references}
+\bibliography{\assets references}
 %TC:endignore
 
-\newpage
-
 % ---- Appendix ----
+
+% \newpage
 %TC:ignore
 % \appendix
 % \appendixpage

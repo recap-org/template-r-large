@@ -1,3 +1,9 @@
+% define path information
+\newcommand{\assets}{../../assets/}
+\newcommand{\tables}{\assets tables/}
+\newcommand{\figures}{\assets figures/}
+\newcommand{\static}{\assets static/}
+
 \documentclass[aspectratio=169,10pt]{beamer}
 \usepackage[authoryear]{natbib}
 \usepackage{xcolor}
@@ -34,7 +40,7 @@
 \usetheme[titleformat=smallcaps,progressbar=frametitle,numbering=none]{moloch}
 \setbeamertemplate{page number in head/foot}[appendixframenumber]
 
-\title{Title}
+\title{On the Reproducibility of Plausible Results}
 \author{Alex Lambda}
 \institute{Institute for Advanced Templates}
 \date{\today}
@@ -44,7 +50,9 @@
 
 \begin{frame}{Motivation}
   \hypertarget{starting_page}{}
-  Sic transit gloria mundi. \cite{Doe}
+
+  Reproducibility is now widely recognized as a central concern in empirical research. Recent work  emphasizes that many irreproducible results stem not from flawed methods, but from undocumented defaults, missing metadata, and fragile workflows \cite{lambda2024defaults}. Here, we argue that even \emph{entirely plausible} results may \emph{fail to reproduce} when computational environments are not explicitly specified.
+
   \hyperlink{appendix}{\beamergotobutton{Example link}}
 \end{frame}
 
@@ -52,17 +60,17 @@
   \begin{table}[H]
     \centering
     \footnotesize
-    \input{./assets/tables/table.tex}
-    \caption{A nice table}
-    \label{tab:nice_table}
+    \input{\tables table.tex}
+    \caption{Regression of Exam Scores on Study Inputs}
+    \label{tab:regression}
   \end{table}
 \end{frame}
 
 \begin{frame}[plain]
   \begin{figure}
     \centering
-    \includegraphics[height=\textheight]{./assets/figures/figure.pdf}
-    \caption{A nice figure}
+    \includegraphics[height=0.5\textheight]{\figures figure.pdf}
+    \caption{Coefficient Estimates with Confidence Intervals}
     \label{fig:nice_figure}
   \end{figure}
 \end{frame}
@@ -89,7 +97,7 @@
   \begingroup
   \renewcommand{\section}[2]{} % Remove automatic "References" title
   \bibliographystyle{aer}
-  \bibliography{./assets/references}
+  \bibliography{\assets references}
   \endgroup
 \end{frame}
 
